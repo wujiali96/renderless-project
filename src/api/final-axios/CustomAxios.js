@@ -14,25 +14,10 @@ class CustomAxios {
         this.instance.interceptors.request.use(
             async config => {
                const request = async () => this.instance(config)
-                return config
+                return await this.requestQueue.enqueue(request)
             },
             error => {
                return Promise.reject(error)
-            }
-        )
-
-        this.instance.interceptors.response.use(
-            response => {
-                if(this.requestQueue.length > 0) {
-                    this.requestQueue.shift()()
-                }
-                return response
-            },
-            error => {
-                if(this.requestQueue.length > 0) {
-                    this.requestQueue.shift()()
-                }
-                return Promise.reject(error)
             }
         )
     }
