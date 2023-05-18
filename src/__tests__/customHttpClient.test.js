@@ -1,6 +1,5 @@
 import {CustomHttpClient} from "../api/common-axios/CommonAxios"
 import axios from "axios"
-global.fetch = require('node-fetch');
 
 const axiosRequestFn = async config => await axios(config)
 const customAxiosInstance = new CustomHttpClient(axiosRequestFn, 8)
